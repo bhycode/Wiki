@@ -22,6 +22,8 @@ CREATE TABLE Author(
     password varchar(255) not null
 );
 describe Author;
+INSERT INTO `author` (`id`, `name`, `email`, `password`) VALUES (NULL, 'test1', 'test1@gmail.com', '123456789');
+
 
 
 CREATE TABLE Category(
@@ -31,6 +33,12 @@ CREATE TABLE Category(
     FOREIGN KEY (admin_id_fk) REFERENCES Admin(id)
 );
 describe Category;
+INSERT INTO `category` (`id`, `name`, `admin_id_fk`) VALUES (NULL, 'Science', '1');
+INSERT INTO `category` (`id`, `name`, `admin_id_fk`) VALUES (NULL, 'Programming', '1');
+INSERT INTO `category` (`id`, `name`, `admin_id_fk`) VALUES (NULL, 'Biology', '1');
+INSERT INTO `category` (`id`, `name`, `admin_id_fk`) VALUES (NULL, 'Plants', '1');
+INSERT INTO `category` (`id`, `name`, `admin_id_fk`) VALUES (NULL, 'Animals', '1');
+
 
 
 CREATE TABLE Tag(
@@ -40,18 +48,21 @@ CREATE TABLE Tag(
     FOREIGN KEY (admin_id_fk) REFERENCES Admin(id)
 );
 describe Tag;
+INSERT INTO `tag` (`id`, `name`, `admin_id_fk`) VALUES (NULL, 'Cat', '1');
 
 
 CREATE TABLE Wiki(
     id int primary key not null AUTO_INCREMENT,
     title varchar(255) not null,
     body varchar(20000) not null,
-    categroy_id_fk int not null,
-    FOREIGN KEY (categroy_id_fk) REFERENCES Category(id),
+    category_id_fk int not null,
+    FOREIGN KEY (category_id_fk) REFERENCES Category(id),
     author_id_fk INT not null,
     FOREIGN KEY (author_id_fk) REFERENCES Author(id)
 );
 describe Wiki;
+INSERT INTO `wiki` (`id`, `title`, `body`, `category_id_fk`, `author_id_fk`) VALUES (NULL, 'Cats history', 'Cats bla bla bla.', '6', '1');
+
 
 CREATE TABLE Taged(
     id int primary key not null AUTO_INCREMENT,
@@ -60,5 +71,5 @@ CREATE TABLE Taged(
     tag_id_fk INT not null,
     FOREIGN KEY (tag_id_fk) REFERENCES Tag(id)
 );
-
 describe Taged;
+INSERT INTO `taged` (`id`, `wiki_id_fk`, `tag_id_fk`) VALUES (NULL, '1', '1');
