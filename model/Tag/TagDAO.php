@@ -71,13 +71,5 @@ class TagDAO
 }
 
 
-$admin = new TagDAO();
-$result = $admin->getTags();
-
-foreach($result as $admin) {
-    print_r($admin->getName());
-
-}
-
 
 ?>

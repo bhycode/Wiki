@@ -14,17 +14,44 @@ class AuthorDAO
 
     public function addAuthor($author)
     {
+        $name = $author->getName();
+        $email = $author->getEmail();
+        $password = $author->getPassword();
+    
+        // Hash the password
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
         $stmt = $this->db->prepare("INSERT INTO Author (name, email, password) VALUES (?, ?, ?)");
-        $stmt->bindParam(1, $author->getName());
-        $stmt->bindParam(2, $author->getEmail());
-        $stmt->bindParam(3, $author->getPassword());
-
+        $stmt->bindParam(1, $name);
+        $stmt->bindParam(2, $email);
+        $stmt->bindParam(3, $hashedPassword);
+    
         if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
     }
+    
+
+
+    public function auth($email, $password)
+    {
+        // Retrieve hashed password from the database based on the provided email
+        $stmt = $this->db->prepare("SELECT password FROM Author WHERE email = ?");
+        $stmt->bindParam(1, $email);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        if ($result && password_verify($password, $result['password'])) {
+            // Password is correct
+            return true;
+        } else {
+            // Password is incorrect
+            return false;
+        }
+    }
+    
+
 
     public function updateAuthor($author)
     {
@@ -71,6 +98,10 @@ class AuthorDAO
             return false;
         }
     }
+
+
+    
+
 }
 
 

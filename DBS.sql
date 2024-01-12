@@ -45,10 +45,11 @@ CREATE TABLE Tag(
     id int primary key not null AUTO_INCREMENT,
     name varchar(255) not null,
     admin_id_fk INT not null,
-    FOREIGN KEY (admin_id_fk) REFERENCES Admin(id)
+    FOREIGN KEY (admin_id_fk) REFERENCES Admin(id),
+    createAt DATE NOT NULL
 );
 describe Tag;
-INSERT INTO `tag` (`id`, `name`, `admin_id_fk`) VALUES (NULL, 'Cat', '1');
+INSERT INTO `tag` (`id`, `name`, `admin_id_fk`, `createAt`) VALUES (NULL, 'Cat', '1', CURRENT_TIMESTAMP);
 
 
 CREATE TABLE Wiki(
@@ -58,10 +59,11 @@ CREATE TABLE Wiki(
     category_id_fk int not null,
     FOREIGN KEY (category_id_fk) REFERENCES Category(id),
     author_id_fk INT not null,
-    FOREIGN KEY (author_id_fk) REFERENCES Author(id)
+    FOREIGN KEY (author_id_fk) REFERENCES Author(id),
+    createAt DATE NOT NULL
 );
 describe Wiki;
-INSERT INTO `wiki` (`id`, `title`, `body`, `category_id_fk`, `author_id_fk`) VALUES (NULL, 'Cats history', 'Cats bla bla bla.', '6', '1');
+INSERT INTO `wiki` (`id`, `title`, `body`, `category_id_fk`, `author_id_fk`, `createAt`) VALUES (NULL, 'Cats history', 'Cats bla bla bla.', '6', '1', CURRENT_TIMESTAMP);
 
 
 CREATE TABLE Taged(
